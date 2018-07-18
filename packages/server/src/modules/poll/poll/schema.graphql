@@ -1,0 +1,31 @@
+type Subscription {
+  voteHappened: Int!
+}
+
+type Poll {
+  id: Int!
+  name: String!
+  options: [PollOption!]!
+}
+
+type PollOption {
+  id: Int!
+  text: String!
+  votes: Int!
+  pollId: Int!
+}
+
+type PollResponse {
+  errors: [Error!]
+  poll: Poll
+}
+
+type Query {
+  poll(id: Int!): [Poll!]!
+  allPolls: [Poll!]!
+}
+
+type Mutation {
+  createPoll(name: String!, options: [String!]!): PollResponse!
+  vote(pollOptionId: Int!): Boolean!
+}

@@ -20,3 +20,9 @@ export const logoutMutation = gql`
     logout
   }
 `;
+
+export const voteMutation = gql`
+  mutation VoteMutation($pollOptionId: Int!) {
+    vote(pollOptionId: $pollOptionId)
+  }
+`;

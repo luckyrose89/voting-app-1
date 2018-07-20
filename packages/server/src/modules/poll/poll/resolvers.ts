@@ -5,7 +5,7 @@ import { GQL } from "../../../types/schema";
 import { unauthorisedError } from "../../shared/unauthorizedError";
 import { User } from "../../../entity/User";
 import { getRepository } from "typeorm";
-import { pollOptionIdPrefix } from "../../../utils/constants";
+import { pollIdPrefix } from "../../../utils/constants";
 
 interface KeyValuePair {
   [key: string]: any;
@@ -62,7 +62,7 @@ export const resolvers: ResolverMap = {
           pollOptions = await PollOption.create({
             text: x,
             votes: 0,
-            poll: poll.id as any
+            pollId: poll.id as any
           });
 
           await pollOptions.save();
@@ -87,7 +87,7 @@ export const resolvers: ResolverMap = {
               id: pollOptions.id,
               text: pollOptions.text,
               votes: pollOptions.votes,
-              pollId: pollOptions.poll
+              pollId: pollOptions.pollId
             }
           ]
         }
@@ -101,7 +101,7 @@ export const resolvers: ResolverMap = {
       const pollOption = await PollOption.findOne({
         where: { id: pollOptionId }
       });
-      console.log(pollOption);
+
       if (!pollOption) {
         return false;
       }
@@ -111,7 +111,7 @@ export const resolvers: ResolverMap = {
       console.log(ip);
       if (ip) {
         const hasIp = await redis.sismember(
-          `${pollOptionIdPrefix}${pollOptionId}`,
+          `${pollIdPrefix}${pollOption.pollId}`,
           ip
         );
         console.log(hasIp);
@@ -124,7 +124,7 @@ export const resolvers: ResolverMap = {
         { id: pollOptionId },
         { votes: pollOption.votes + 1 }
       );
-      await redis.sadd(`${pollOptionIdPrefix}${pollOptionId}`, ip);
+      await redis.sadd(`${pollIdPrefix}${pollOption.pollId}`, ip);
 
       return true;
     }

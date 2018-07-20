@@ -13,7 +13,7 @@ type PollOption {
   id: Int!
   text: String!
   votes: Int!
-  pollId: Int!
+  pollId: Int
 }
 
 type PollResponse {

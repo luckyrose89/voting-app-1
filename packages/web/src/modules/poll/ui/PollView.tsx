@@ -4,7 +4,12 @@ import { Layout, Button, Select, Row, Col } from "antd";
 import { Doughnut } from "react-chartjs-2";
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
-import { PollQuery, PollQueryVariables } from "@voting/controller";
+import {
+  PollQuery,
+  PollQueryVariables,
+  VoteMutation,
+  VoteMutationVariables
+} from "@voting/controller";
 import { RouteComponentProps } from "react-router-dom";
 import { userId } from "../../../routes";
 
@@ -28,7 +33,7 @@ const pollQuery = gql`
 `;
 
 const voteMutation = gql`
-  mutation vote($pollOptionId: Int!) {
+  mutation VoteMutation($pollOptionId: Int!) {
     vote(pollOptionId: $pollOptionId)
   }
 `;
@@ -56,7 +61,7 @@ const getRandomColor: any = (num: number) => {
   return aColor;
 };
 
-export class PollView extends React.PureComponent<
+export class PollView extends React.Component<
   RouteComponentProps<{ pollId: any }>
 > {
   state = {
@@ -115,19 +120,24 @@ export class PollView extends React.PureComponent<
                         })}
                       </Select>
                       <div>
-                        <Mutation mutation={voteMutation}>
+                        <Mutation<VoteMutation, VoteMutationVariables>
+                          mutation={voteMutation}
+                          ignoreResults={false}
+                        >
                           {vote => (
                             <Button
                               type="primary"
                               style={{ marginTop: 10, width: "100%" }}
                               // tslint:disable-next-line:jsx-no-lambda
                               onClick={async () => {
-                                const result = await vote({
+                                const results = await vote({
                                   variables: {
                                     pollOptionId: this.state.selectValue
                                   }
                                 });
-                                console.log(result);
+                                if (!(results as any).data.vote) {
+                                  alert("You can only vote once");
+                                }
                                 await refetch();
                               }}
                             >

@@ -89,6 +89,22 @@ export interface LogoutMutation {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: VoteMutation
+// ====================================================
+
+export interface VoteMutation {
+  vote: boolean;
+}
+
+export interface VoteMutationVariables {
+  pollOptionId: number;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: MyPollQuery
 // ====================================================
 
@@ -99,6 +115,46 @@ export interface MyPollQuery_myPoll {
 
 export interface MyPollQuery {
   myPoll: MyPollQuery_myPoll[];
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: CreatePollMutation
+// ====================================================
+
+export interface CreatePollMutation_createPoll_errors {
+  path: string;
+  message: string;
+}
+
+export interface CreatePollMutation_createPoll_poll_options {
+  id: number;
+  text: string;
+  votes: number;
+  pollId: number | null;
+}
+
+export interface CreatePollMutation_createPoll_poll {
+  id: number;
+  name: string;
+  options: CreatePollMutation_createPoll_poll_options[];
+}
+
+export interface CreatePollMutation_createPoll {
+  errors: CreatePollMutation_createPoll_errors[] | null;
+  poll: CreatePollMutation_createPoll_poll | null;
+}
+
+export interface CreatePollMutation {
+  createPoll: CreatePollMutation_createPoll;
+}
+
+export interface CreatePollMutationVariables {
+  name: string;
+  options: string[];
 }
 
 
@@ -121,46 +177,6 @@ export interface RegisterMutation {
 export interface RegisterMutationVariables {
   email: string;
   password: string;
-}
-
-
-/* tslint:disable */
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL mutation operation: CreatePollMutation
-// ====================================================
-
-export interface CreatePollMutation_createPoll_errors {
-  path: string;
-  message: string;
-}
-
-export interface CreatePollMutation_createPoll_poll_options {
-  id: number;
-  text: string;
-  votes: number;
-  pollId: number;
-}
-
-export interface CreatePollMutation_createPoll_poll {
-  id: number;
-  name: string;
-  options: CreatePollMutation_createPoll_poll_options[];
-}
-
-export interface CreatePollMutation_createPoll {
-  errors: CreatePollMutation_createPoll_errors[] | null;
-  poll: CreatePollMutation_createPoll_poll | null;
-}
-
-export interface CreatePollMutation {
-  createPoll: CreatePollMutation_createPoll;
-}
-
-export interface CreatePollMutationVariables {
-  name: string;
-  options: string[];
 }
 
 /* tslint:disable */

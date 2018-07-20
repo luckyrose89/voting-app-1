@@ -1,1 +1,1 @@
-export const pollOptionIdPrefix = "poId";
+export const pollIdPrefix = "pollId:";

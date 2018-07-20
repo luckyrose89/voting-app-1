@@ -29,7 +29,8 @@ const server = new GraphQLServer({
   schema: genSchema() as any,
   context: ({ request }) => ({
     session: request.session,
-    req: request
+    req: request,
+    redis
   }),
   middlewares: [permissions]
 });

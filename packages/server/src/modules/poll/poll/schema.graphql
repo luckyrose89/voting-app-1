@@ -5,6 +5,7 @@ type Subscription {
 type Poll {
   id: Int!
   name: String!
+  userId: ID
   options: [PollOption!]!
 }
 

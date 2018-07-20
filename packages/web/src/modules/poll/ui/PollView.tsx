@@ -6,6 +6,7 @@ import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import { PollQuery, PollQueryVariables } from "@voting/controller";
 import { RouteComponentProps } from "react-router-dom";
+import { userId } from "../../../routes";
 
 const Option = Select.Option;
 
@@ -16,6 +17,7 @@ const pollQuery = gql`
     poll(id: $id) {
       id
       name
+      userId
       options {
         id
         text
@@ -28,6 +30,12 @@ const pollQuery = gql`
 const voteMutation = gql`
   mutation vote($pollOptionId: Int!) {
     vote(pollOptionId: $pollOptionId)
+  }
+`;
+
+const deletePollMutation = gql`
+  mutation deletePoll($id: Int!) {
+    deletePoll(id: $id)
   }
 `;
 
@@ -149,6 +157,30 @@ export class PollView extends React.PureComponent<
                           width={100}
                           height={70}
                         />
+                        {data.poll[0].userId === userId ? (
+                          <Mutation mutation={deletePollMutation}>
+                            {deletePoll => (
+                              <Button
+                                type="danger"
+                                style={{ marginTop: 10, width: "100%" }}
+                                // tslint:disable-next-line:jsx-no-lambda
+                                onClick={async () => {
+                                  const result = await deletePoll({
+                                    variables: {
+                                      id: pollId
+                                    }
+                                  });
+                                  console.log(result);
+                                  this.props.history.push("/mypoll");
+                                }}
+                              >
+                                Delete
+                              </Button>
+                            )}
+                          </Mutation>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </Col>
                   </Row>

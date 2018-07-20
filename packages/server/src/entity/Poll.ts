@@ -14,8 +14,7 @@ export class Poll extends BaseEntity {
 
   @Column("text") name: string;
 
-  @Column("timestamp", { nullable: true })
-  createdAt: string;
+  @Column("uuid") userId: string;
 
   @ManyToOne(() => User, poll => poll.polls)
   user: Poll;

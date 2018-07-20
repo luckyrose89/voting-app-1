@@ -14,6 +14,6 @@ export class PollOption extends BaseEntity {
 
   @Column() votes: number;
 
-  @ManyToOne(() => Poll, poll => poll.options)
+  @ManyToOne(() => Poll, poll => poll.options, { onDelete: "CASCADE" })
   poll: Poll;
 }

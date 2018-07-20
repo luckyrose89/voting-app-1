@@ -21,14 +21,21 @@ type RouteComponent =
 
 const authentication = gql`
   query {
-    authentication
+    authentication {
+      access
+      userId
+    }
   }
 `;
 
 export let authorization = false;
-
+export let userId: string;
 const AUTHENTICATED = (data: any) => {
-  return data.authentication;
+  if (data.authentication.access) {
+    userId = data.authentication.userId;
+    return true;
+  }
+  return false;
 };
 
 const C: React.SFC<ChildDataProps<RouteProps>> = ({

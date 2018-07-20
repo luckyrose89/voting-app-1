@@ -48,6 +48,47 @@ export interface AllPollsQuery {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: PollQuery
+// ====================================================
+
+export interface PollQuery_poll_options {
+  id: number;
+  text: string;
+  votes: number;
+}
+
+export interface PollQuery_poll {
+  id: number;
+  name: string;
+  userId: string | null;
+  options: PollQuery_poll_options[];
+}
+
+export interface PollQuery {
+  poll: PollQuery_poll[];
+}
+
+export interface PollQueryVariables {
+  id: number;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: LogoutMutation
+// ====================================================
+
+export interface LogoutMutation {
+  logout: boolean | null;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: MyPollQuery
 // ====================================================
 
@@ -58,6 +99,28 @@ export interface MyPollQuery_myPoll {
 
 export interface MyPollQuery {
   myPoll: MyPollQuery_myPoll[];
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: RegisterMutation
+// ====================================================
+
+export interface RegisterMutation_register {
+  path: string;
+  message: string;
+}
+
+export interface RegisterMutation {
+  register: RegisterMutation_register[] | null;
+}
+
+export interface RegisterMutationVariables {
+  email: string;
+  password: string;
 }
 
 
@@ -98,68 +161,6 @@ export interface CreatePollMutation {
 export interface CreatePollMutationVariables {
   name: string;
   options: string[];
-}
-
-
-/* tslint:disable */
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: PollQuery
-// ====================================================
-
-export interface PollQuery_poll_options {
-  id: number;
-  text: string;
-  votes: number;
-}
-
-export interface PollQuery_poll {
-  id: number;
-  name: string;
-  options: PollQuery_poll_options[];
-}
-
-export interface PollQuery {
-  poll: PollQuery_poll[];
-}
-
-export interface PollQueryVariables {
-  id: number;
-}
-
-
-/* tslint:disable */
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL mutation operation: LogoutMutation
-// ====================================================
-
-export interface LogoutMutation {
-  logout: boolean | null;
-}
-
-
-/* tslint:disable */
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL mutation operation: RegisterMutation
-// ====================================================
-
-export interface RegisterMutation_register {
-  path: string;
-  message: string;
-}
-
-export interface RegisterMutation {
-  register: RegisterMutation_register[] | null;
-}
-
-export interface RegisterMutationVariables {
-  email: string;
-  password: string;
 }
 
 /* tslint:disable */

@@ -31,6 +31,7 @@ class C extends React.PureComponent<MyAppPropsInternal> {
                       mutation: logoutMutation
                     });
                     await client.resetStore();
+                    window.location.reload();
                   }
                 }
               >

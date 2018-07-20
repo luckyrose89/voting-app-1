@@ -1,7 +1,10 @@
+import { Redis } from "ioredis";
+import { Request } from "express";
+
 export type Resolver = (
   parent: any,
   args: any,
-  context: { session: Session; req: Express.Request },
+  context: { session: Session; req: Request; redis: Redis },
   info: any
 ) => any;
 

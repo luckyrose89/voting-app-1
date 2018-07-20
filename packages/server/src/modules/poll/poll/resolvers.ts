@@ -5,6 +5,7 @@ import { GQL } from "../../../types/schema";
 import { unauthorisedError } from "../../shared/unauthorizedError";
 import { User } from "../../../entity/User";
 import { getRepository } from "typeorm";
+import { pollOptionIdPrefix } from "../../../utils/constants";
 
 interface KeyValuePair {
   [key: string]: any;
@@ -51,7 +52,7 @@ export const resolvers: ResolverMap = {
 
       const poll = await Poll.create({
         name,
-        user: session.userId as any
+        userId: session.userId as any
       });
       await poll.save();
       let pollOptions: KeyValuePair = {};
@@ -92,18 +93,38 @@ export const resolvers: ResolverMap = {
         }
       };
     },
-    vote: async (_, { pollOptionId }: GQL.IVoteOnMutationArguments) => {
+    vote: async (
+      _,
+      { pollOptionId }: GQL.IVoteOnMutationArguments,
+      { req, redis }
+    ) => {
       const pollOption = await PollOption.findOne({
         where: { id: pollOptionId }
       });
-
+      console.log(pollOption);
       if (!pollOption) {
         return false;
       }
+
+      const ip = req.header("x-forwarded-for") || req.connection.remoteAddress;
+      console.log("my ip is ");
+      console.log(ip);
+      if (ip) {
+        const hasIp = await redis.sismember(
+          `${pollOptionIdPrefix}${pollOptionId}`,
+          ip
+        );
+        console.log(hasIp);
+        if (hasIp) {
+          return false;
+        }
+      }
+
       await PollOption.update(
         { id: pollOptionId },
         { votes: pollOption.votes + 1 }
       );
+      await redis.sadd(`${pollOptionIdPrefix}${pollOptionId}`, ip);
 
       return true;
     }

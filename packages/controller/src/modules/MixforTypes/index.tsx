@@ -5,6 +5,7 @@ export const pollquery = gql`
     poll(id: $id) {
       id
       name
+      userId
       options {
         id
         text

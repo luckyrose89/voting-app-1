@@ -9,13 +9,15 @@ COPY ./packages/common/package.json ./packages/common/
 
 RUN yarn install --production
 
-COPY ./packages/server/dist ./packages/server/  
-COPY ./packages/common/dist ./packages/common/ 
-COPY ./packages/server/.env.prod  ./packages/server/
+COPY ./packages/server/dist ./packages/server/dist  
+COPY ./packages/common/dist ./packages/common/dist 
+COPY ./packages/server/.env  ./packages/server/
 COPY ./ormconfig.json .
 
 WORKDIR ./packages/server
 
-EXPOSE 80
+ENV NODE_ENV=production
+
+EXPOSE 4000
 
 CMD [ "node","dist/index.js" ]

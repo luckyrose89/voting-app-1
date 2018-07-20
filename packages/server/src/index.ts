@@ -1,7 +1,6 @@
 import "reflect-metadata";
 // tslint:disable-next-line:no-var-requires
 require("dotenv").config();
-import { createConnection } from "typeorm";
 import * as Redis from "ioredis";
 import * as session from "express-session";
 import * as connectRedis from "connect-redis";
@@ -13,9 +12,13 @@ import * as passport from "passport";
 import { Strategy } from "passport-twitter";
 import { permissions } from "./permissions";
 import { User } from "./entity/User";
+import { createTyperomConn } from "./utils/createTypeormConn";
 
 const SESSION_SECRET = "asdfadfafafashgf";
-const redis = new Redis();
+const redis =
+  process.env.NODE_ENV === "production"
+    ? new Redis(process.env.REDIS_URL)
+    : new Redis();
 const RedisStore = connectRedis(session);
 
 // cors
@@ -119,12 +122,18 @@ server.express.get(
   }
 );
 // twitter end
-
-// server start
-createConnection()
+createTyperomConn()
   .then(async () => {
-    server.start({ cors }, () =>
+    await server.start({ cors }, () =>
       console.log("Server is running on localhost:4000")
     );
   })
   .catch(error => console.log(error));
+// server start
+// createConnection()
+//   .then(async () => {
+//     server.start({ cors }, () =>
+//       console.log("Server is running on localhost:4000")
+//     );
+//   })
+//   .catch(error => console.log(error));

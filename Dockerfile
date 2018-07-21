@@ -11,7 +11,7 @@ RUN yarn install --production
 
 COPY ./packages/server/dist ./packages/server/dist  
 COPY ./packages/common/dist ./packages/common/dist 
-COPY ./packages/server/.env  ./packages/server/
+COPY ./packages/server/.env.prod  ./packages/server/.env
 COPY ./ormconfig.json .
 
 WORKDIR ./packages/server

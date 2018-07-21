@@ -21,9 +21,8 @@ class C extends React.Component<ChildDataProps<Props, AllPollsQuery>> {
     this.props.data.refetch();
   }
   render() {
-    console.log(this.props.data);
     const { allPolls } = this.props.data;
-    console.log(allPolls);
+
     return <div>{this.props.render({ allPolls })}</div>;
   }
 }

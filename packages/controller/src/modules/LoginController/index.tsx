@@ -32,7 +32,6 @@ class C extends React.PureComponent<
   ChildMutateProps<Props, LoginMutation, LoginMutationVariables>
 > {
   submit = async (values: LoginMutationVariables) => {
-    console.log(values);
     const {
       data: {
         login: { errors, sessionId }
@@ -40,7 +39,7 @@ class C extends React.PureComponent<
     } = await this.props.mutate({
       variables: values
     });
-    console.log(errors, sessionId);
+
     if (errors) {
       return normalizeErrors(errors);
     }

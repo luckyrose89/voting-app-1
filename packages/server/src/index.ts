@@ -38,6 +38,9 @@ const server = new GraphQLServer({
   middlewares: [permissions]
 });
 // cookie
+if (process.env.NODE_ENV === "production") {
+  server.express.set("trust proxy", 1);
+}
 
 server.express.use(
   session({
@@ -73,7 +76,7 @@ passport.use(
     {
       consumerKey: process.env.TWITTER_CONSUMER_KEY as string,
       consumerSecret: process.env.TWITTER_CONSUMER_SECRET as string,
-      callbackURL: `http://localhost:4000/auth/twitter/callback`,
+      callbackURL: `${process.env.BACKEND_URL}/auth/twitter/callback`,
       includeEmail: true
     },
     async (_, __, profile, cb) => {
@@ -118,13 +121,14 @@ server.express.get(
   (req, res) => {
     // Successful authentication, redirect home.
     (req.session as any).userId = (req.user as any).id;
-    res.redirect(`${process.env.FRONTEND_HOST}/success`);
+    res.redirect(`${process.env.FRONTEND_HOST}/newpoll`);
   }
 );
 // twitter end
+const port = process.env.PORT || 4000;
 createTyperomConn()
   .then(async () => {
-    await server.start({ cors }, () =>
+    await server.start({ cors, port }, () =>
       console.log("Server is running on localhost:4000")
     );
   })

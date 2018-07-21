@@ -69,7 +69,6 @@ export class PollView extends React.Component<
   };
 
   handleChange = (value: number) => {
-    console.log(value);
     this.setState({ selectValue: value });
   };
 
@@ -175,12 +174,12 @@ export class PollView extends React.Component<
                                 style={{ marginTop: 10, width: "100%" }}
                                 // tslint:disable-next-line:jsx-no-lambda
                                 onClick={async () => {
-                                  const result = await deletePoll({
+                                  await deletePoll({
                                     variables: {
                                       id: pollId
                                     }
                                   });
-                                  console.log(result);
+
                                   this.props.history.push("/mypoll");
                                 }}
                               >

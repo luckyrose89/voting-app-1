@@ -18,7 +18,7 @@ export const resolvers: ResolverMap = {
       { session, req }
     ) => {
       const user = await User.findOne({ where: { email } });
-      console.log(user);
+
       if (!user) {
         return {
           errors: errorResponse

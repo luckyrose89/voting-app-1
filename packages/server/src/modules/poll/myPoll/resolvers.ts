@@ -12,7 +12,7 @@ export const resolvers: ResolverMap = {
         where: { id: session.userId },
         relations: ["polls"]
       });
-      console.log(user[0].polls);
+
       return user[0].polls;
     }
   }

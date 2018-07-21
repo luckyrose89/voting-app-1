@@ -1,5 +1,9 @@
 {
   "private": true,
+  "scripts": {
+    "build:server": "lerna run build --scope={@voting/common,@voting/server}",
+    "build:web": "lerna run build --scope={@voting/common,@voting/controller,@voting/web}"
+  },
   "workspaces": {
     "packages": [
       "packages/*"
@@ -16,5 +20,8 @@
       "**/metro-bundler-config-yarn-workspaces",
       "**/metro-bundler-config-yarn-workspaces/**"
     ]
+  },
+  "devDependencies": {
+    "lerna": "^2.11.0"
   }
 }

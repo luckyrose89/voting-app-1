@@ -15,7 +15,6 @@ class C extends React.PureComponent<
 > {
   onFinish = async () => {
     await this.props.client.resetStore();
-    console.log("called");
     this.props.history.push("/newpoll");
   };
   render() {

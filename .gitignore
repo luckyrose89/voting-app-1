@@ -4,7 +4,7 @@
 .expo/
 .netlify
 
-ormconfig.json
+
 node_modules/
 build/
 temp/

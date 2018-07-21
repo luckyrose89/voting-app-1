@@ -69,7 +69,7 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
                 </Button>
                 <div style={{ textAlign: "center" }}>Or </div>
                 <Button style={{ width: "100%" }}>
-                  <a href="http://localhost:4000/auth/twitter">
+                  <a href={`${process.env.REACT_APP_SERVER_URL}/auth/twitter`}>
                     Sign In with Twitter <Icon type="twitter" />
                   </a>
                 </Button>
@@ -93,7 +93,6 @@ export const LoginView = withFormik<Props, FormValues>({
     if (errors) {
       setErrors(errors);
     } else {
-      console.log("fininshed");
       props.onFinish();
     }
   }

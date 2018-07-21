@@ -33,7 +33,7 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
                 value={values.name}
                 onChange={handleChange}
               />
-              <h3>Options (seperated by commas):</h3>
+              <h3>Options (seperated by new line):</h3>
               <Input.TextArea
                 rows={4}
                 name="options"
@@ -66,7 +66,6 @@ export const NewPollView = withFormik<Props, FormValues>({
     values.options = values.options.toString();
     values.options = values.options.split("\n");
     const errors = await props.submit(values);
-    console.log(errors);
     const {
       data: {
         createPoll: {
@@ -74,7 +73,6 @@ export const NewPollView = withFormik<Props, FormValues>({
         }
       }
     } = errors;
-    console.log(id);
     if (errors.data.createPoll.errors) {
       setErrors(errors);
     } else {

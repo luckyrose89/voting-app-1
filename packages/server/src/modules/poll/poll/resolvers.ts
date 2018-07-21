@@ -34,8 +34,6 @@ export const resolvers: ResolverMap = {
       { name, options }: GQL.ICreatePollOnMutationArguments,
       { session }
     ) => {
-      console.log("here");
-      console.log(session.userId);
       if (!session.userId) {
         return {
           errors: unauthorisedError
@@ -107,14 +105,13 @@ export const resolvers: ResolverMap = {
       }
 
       const ip = req.header("x-forwarded-for") || req.connection.remoteAddress;
-      console.log("my ip is ");
-      console.log(ip);
+
       if (ip) {
         const hasIp = await redis.sismember(
           `${pollIdPrefix}${pollOption.pollId}`,
           ip
         );
-        console.log(hasIp);
+
         if (hasIp) {
           return false;
         }

@@ -66,7 +66,7 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
                 </Button>
                 <div style={{ textAlign: "center" }}>or</div>
                 <Button style={{ width: "100%" }}>
-                  <a href="http://localhost:4000/auth/twitter">
+                  <a href={`${process.env.REACT_APP_SERVER_URL}/auth/twitter`}>
                     Sign In with Twitter <Icon type="twitter" />
                   </a>
                 </Button>
